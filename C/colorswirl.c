@@ -39,7 +39,7 @@ the serial port device name, e.g.:
 #include <time.h>
 #include <math.h>
 
-#define N_LEDS 25 // Max of 65536
+#define N_LEDS 60 // Max of 65536
 
 int main(int argc,char *argv[])
 {
@@ -88,7 +88,12 @@ int main(int argc,char *argv[])
 	hue1  = 0;
 	prev = start = time(NULL); // For bandwidth statistics
 
+  
 	for(;;) {
+  //usleep(1000000);
+  //  usleep(50000);
+  usleep(18000); // ca. 52 fps by 60LEDS
+  //usleep(10000); // ca. 62 fps by 60LEDS
 		sine2 = sine1;
 		hue2  = hue1;
 
@@ -142,6 +147,10 @@ int main(int argc,char *argv[])
 			buffer[i++] = (r * brightness) / 255;
 			buffer[i++] = (g * brightness) / 255;
 			buffer[i++] = (b * brightness) / 255;
+
+//      buffer[i++] = 100;//(r * brightness) / 255;
+//      buffer[i++] = 0;  //(g * brightness) / 255;
+//      buffer[i++] = 0;  //(b * brightness) / 255;
 
 			// Each pixel is offset in both hue and brightness
 			hue2  += 40;
